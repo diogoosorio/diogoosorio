@@ -10,7 +10,13 @@ const RenovationCalculator = () => {
     <main className="container">
       <section>
         <header>
-          <h1>Calculadora Remodelação</h1>
+          <hgroup>
+            <h1>Calculadora Remodelação</h1>
+            <p>
+              Adicione as divisões que quer remodelar e respetivos serviços para obter
+              uma estimativa de valores.
+            </p>
+          </hgroup>
         </header>
 
         <RenovationCalculatorForm
@@ -19,7 +25,7 @@ const RenovationCalculator = () => {
       </section>
 
       <section>
-        <h2>Divisões atuais</h2>
+        <h2>Orçamento</h2>
 
         <RenovationDivisionTable divisions={renovationForm.divisions} />
       </section>

@@ -49,6 +49,8 @@ const RenovationCalculatorForm = ({ addDivision, currentDivisions }: { addDivisi
     form.reset();
   }
 
+  const isWaterDivision = divisionKind && ['bathroom', 'kitchen'].includes(divisionKind);
+
   return (
     <form onSubmit={handleSubmit}>
       <fieldset className="grid">
@@ -110,26 +112,26 @@ const RenovationCalculatorForm = ({ addDivision, currentDivisions }: { addDivisi
       </fieldset>
 
       <fieldset>
-        <label>
-          <input type="checkbox" name="electricity" />
-          Refazer eletricidade
-        </label>
-        {divisionKind && ['bathroom', 'kitchen'].includes(divisionKind) && (
-          <>
-            <label>
-              <input type="checkbox" name="sewage" />
-              Refazer esgotos
-            </label>
-            <label>
-              <input type="checkbox" name="plumbing" />
-              Refazer canalização
-            </label>
-            <label>
-              <input id="division.gas" type="checkbox" name="gas" />
-              Refazer gás
-            </label>
-          </>
-        )}
+        <p>Serviços Estruturais</p>
+
+        <div className="grid">
+          <label>
+            <input type="checkbox" name="electricity" />
+            Rede elétrica
+          </label>
+          <label>
+            <input type="checkbox" name="sewage" disabled={!isWaterDivision} />
+            Esgotos
+          </label>
+          <label>
+            <input type="checkbox" name="plumbing" disabled={!isWaterDivision} />
+            Canalização
+          </label>
+          <label>
+            <input type="checkbox" name="gas" disabled={!isWaterDivision} />
+            Rede gás
+          </label>
+        </div>
       </fieldset>
 
       <button type="submit">Adicionar Divisão</button>

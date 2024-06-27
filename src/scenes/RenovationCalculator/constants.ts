@@ -9,9 +9,9 @@ export const divisionKinds: [DivisionKind, string][] = [
 ];
 
 export const wallServices: [Services['walls'], string][] = [
-  ['paint', 'Pintura'],
+  ['paint', 'Só Pintura'],
   ['stucco', 'Estuque + Pintura'],
-  ['repair', 'Reparação + Pintura'],
+  ['repair', 'Preparação + Pintura'],
   ['plasterboard', 'Pladur + Pintura'],
   ['wallpaper', 'Papel de Parede'],
   ['tiles', 'Azulejos'],

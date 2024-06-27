@@ -1,3 +1,4 @@
+import { calculateEstimation } from "../../calculator";
 import { ceilingServices, floorServices, wallServices } from "../../constants";
 import { Division } from "../../types";
 
@@ -25,6 +26,8 @@ const labelStructuralServices = (division: Division) => {
 }
 
 const RenovationDivisionTable = ({ divisions }: { divisions: Division[] }) => {
+    const formatter = new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' });
+
     return (
         <table className="striped">
             <thead>
@@ -34,9 +37,16 @@ const RenovationDivisionTable = ({ divisions }: { divisions: Division[] }) => {
                 <th>Teto</th>
                 <th>Pavimento</th>
                 <th>Serviços Estruturais</th>
+                <th></th>
             </thead>
             <tbody>
-                {divisions.map((division) => (
+                {divisions.length === 0 && (
+                <tr>
+                    <td colSpan={7}>Adicione uma divisão para ter um custo estimado</td>
+                </tr>
+                )}
+
+                {divisions.length > 0 && divisions.map((division) => (
                     <tr>
                         <td>{division.name}</td>
                         <td>{division.measures.width}m x {division.measures.length}m x {division.measures.height}m</td>
@@ -44,13 +54,15 @@ const RenovationDivisionTable = ({ divisions }: { divisions: Division[] }) => {
                         <td>{ceilingServices.find(([service]) => service === division.services.ceiling)?.[1] || 'N/A'}</td>
                         <td>{floorServices.find(([service]) => service === division.services.floor)?.[1] || 'N/A'}</td>
                         <td>{labelStructuralServices(division)}</td>
+                        <td><button className="outline secondary">Remover</button></td>
                     </tr>
                 ))}
             </tbody>
             <tfoot>
                 <tr>
-                    <td colSpan={5}>Total Estimado:</td>
-                    <td>5.550€</td>
+                    <td colSpan={4}></td>
+                    <td colSpan={2}>Total Estimado:</td>
+                    <td colSpan={1}>{divisions.length === 0 ? 'N/A' : formatter.format(calculateEstimation(divisions))}</td>
                 </tr>
             </tfoot>
         </table>
