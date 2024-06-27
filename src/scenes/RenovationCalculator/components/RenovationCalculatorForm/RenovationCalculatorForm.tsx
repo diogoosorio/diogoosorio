@@ -51,88 +51,89 @@ const RenovationCalculatorForm = ({ addDivision, currentDivisions }: { addDivisi
 
   return (
     <form onSubmit={handleSubmit}>
-    <div className="field">
-      <label htmlFor="division.kind">Tipo da Divisão</label>
-      <select id="division.kind" name="kind" onChange={loadDivisionKind} required>
-        <option>Selecione...</option>
-        {divisionKinds.map(([kind, label]) => (<option key={kind} value={kind}>{label}</option>))}
-      </select>
-    </div>
+      <fieldset className="grid">
+        <label>
+          Tipo da Divisão
+          <select name="kind" onChange={loadDivisionKind} required>
+            <option>Selecione...</option>
+            {divisionKinds.map(([kind, label]) => (<option key={kind} value={kind}>{label}</option>))}
+          </select>
+        </label>
 
-    <div className="field">
-      <label htmlFor="division.name">Nome da Divisão</label>
-      <input id="division.name" type="text" name="name" value={divisionName} onChange={(e) => setDivisionName(e.target.value)} required />
-    </div>
-
-    <div className="field">
-      <label htmlFor="division.width">Largura (m)</label>
-      <input id="division.width" type="number" name="width" required min="1" />
-    </div>
-
-    <div className="field">
-      <label htmlFor="division.length">Comprimento (m)</label>
-      <input id="division.length" type="number" name="length" required min="1" />
-    </div>
-
-    <div className="field">
-      <label htmlFor="division.height">Altura (m)</label>
-      <input id="division.height" type="number" name="height" required min="1" />
-    </div>
-
-    <div className="field">
-      <label htmlFor="division.walls">Paredes</label>
-      <select id="division.walls" name="walls" required>
-        <option value="none">Selecione...</option>
-        {wallServices.map(([service, label]) => (<option key={service} value={service}>{label}</option>))}
-      </select>
-    </div>
-
-    <div className="field">
-      <label htmlFor="division.ceiling">Teto</label>
-      <select value="none" id="division.ceiling" name="ceiling" required>
-        <option>Selecione...</option>
-        {ceilingServices.map(([service, label]) => (<option key={service} value={service}>{label}</option>))}
-      </select>
-    </div>
-
-    <div className="field">
-      <label htmlFor="division.floor">Pavimento</label>
-      <select value="none" id="division.floor" name="floor" required>
-        <option>Selecione...</option>
-        {floorServices.map(([service, label]) => (<option key={service} value={service}>{label}</option>))}
-      </select>
-    </div>
-
-    <div className="field">
-      <fieldset>
-        <legend>Serviços Estruturais</legend>
-        <ul>
-          <li>
-            <label htmlFor="division.electricity">Eletricidade</label>
-            <input id="division.electricity" type="checkbox" name="electricity" />
-          </li>
-          {divisionKind && ['bathroom', 'kitchen'].includes(divisionKind) && (
-            <>
-              <li>
-                <label htmlFor="division.sewage">Esgotos</label>
-                <input id="division.sewage" type="checkbox" name="sewage" />
-              </li>
-              <li>
-                <label htmlFor="division.plumbing">Canalização</label>
-                <input id="division.plumbing" type="checkbox" name="plumbing" />
-              </li>
-              <li>
-                <label htmlFor="division.gas">Gás</label>
-                <input id="division.gas" type="checkbox" name="gas" />
-              </li>
-            </>
-          )}
-        </ul>
+        <label>
+          Nome da Divisão
+          <input id="division.name" type="text" name="name" value={divisionName} onChange={(e) => setDivisionName(e.target.value)} required />
+        </label>
       </fieldset>
-    </div>
 
-    <button type="submit">Adicionar Divisão</button>
-  </form>
+      <fieldset className="grid">
+        <label>
+          Largura (m)
+          <input id="division.width" type="number" name="width" required min="1" />
+        </label>
+
+        <label>
+          Comprimento (m)
+          <input type="number" name="length" required min="1" />
+        </label>
+
+        <label>
+          Altura (m)
+          <input type="number" name="height" required min="1" />
+        </label>
+      </fieldset>
+
+      <fieldset className="grid">
+        <label>
+          Paredes
+          <select name="walls" aria-label="Selecione o serviço de paredes..." required>
+            <option value="none">Selecione o serviço de paredes...</option>
+            {wallServices.map(([service, label]) => (<option key={service} value={service}>{label}</option>))}
+          </select>
+        </label>
+
+        <label>
+          Teto
+          <select name="ceiling" aria-label="Selecione o serviço de teto..." required>
+            <option value="none">Selecione o serviço de teto...</option>
+            {ceilingServices.map(([service, label]) => (<option key={service} value={service}>{label}</option>))}
+          </select>
+        </label>
+
+        <label>
+          Pavimento
+          <select name="floor" aria-label="Selecione o serviço de chão..." required>
+            <option value="none">Selecione o serviço de chão...</option>
+            {floorServices.map(([service, label]) => (<option key={service} value={service}>{label}</option>))}
+          </select>
+        </label>
+      </fieldset>
+
+      <fieldset>
+        <label>
+          <input type="checkbox" name="electricity" />
+          Refazer eletricidade
+        </label>
+        {divisionKind && ['bathroom', 'kitchen'].includes(divisionKind) && (
+          <>
+            <label>
+              <input type="checkbox" name="sewage" />
+              Refazer esgotos
+            </label>
+            <label>
+              <input type="checkbox" name="plumbing" />
+              Refazer canalização
+            </label>
+            <label>
+              <input id="division.gas" type="checkbox" name="gas" />
+              Refazer gás
+            </label>
+          </>
+        )}
+      </fieldset>
+
+      <button type="submit">Adicionar Divisão</button>
+    </form>
   )
 };
 
