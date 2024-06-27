@@ -5,6 +5,7 @@ import RenovationDivisionTable from "./components/RenovationDivisionTable";
 
 const RenovationCalculator = () => {
   const [renovationForm, setRenovationForm] = useState<RenovationForm>({ divisions: [] });
+  const removeDivision = (division: Division) => setRenovationForm({ divisions: renovationForm.divisions.filter(d => d !== division) });
 
   return (
     <main className="container">
@@ -27,7 +28,7 @@ const RenovationCalculator = () => {
       <section>
         <h2>Orçamento</h2>
 
-        <RenovationDivisionTable divisions={renovationForm.divisions} />
+        <RenovationDivisionTable removeDivision={removeDivision} divisions={renovationForm.divisions} />
       </section>
     </main>
   );

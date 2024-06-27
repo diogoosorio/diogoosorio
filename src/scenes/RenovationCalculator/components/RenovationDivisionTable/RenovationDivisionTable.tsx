@@ -25,7 +25,7 @@ const labelStructuralServices = (division: Division) => {
     return services.length ? services.join(' / ') : 'N/A';
 }
 
-const RenovationDivisionTable = ({ divisions }: { divisions: Division[] }) => {
+const RenovationDivisionTable = ({ divisions, removeDivision }: { divisions: Division[], removeDivision: (division: Division) => void }) => {
     const formatter = new Intl.NumberFormat('pt-PT', { style: 'currency', currency: 'EUR' });
 
     return (
@@ -54,7 +54,7 @@ const RenovationDivisionTable = ({ divisions }: { divisions: Division[] }) => {
                         <td>{ceilingServices.find(([service]) => service === division.services.ceiling)?.[1] || 'N/A'}</td>
                         <td>{floorServices.find(([service]) => service === division.services.floor)?.[1] || 'N/A'}</td>
                         <td>{labelStructuralServices(division)}</td>
-                        <td><button className="outline secondary">Remover</button></td>
+                        <td><button className="outline secondary" onClick={() => removeDivision(division)}>Remover</button></td>
                     </tr>
                 ))}
             </tbody>
